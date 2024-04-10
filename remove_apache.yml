@@ -4,12 +4,20 @@
   become: true
   tasks:
 
-  - name: remove apache2 package
+  - name: remove package (Ubuntu)
     apt:
-      name: apache2
+      name:
+        - apache2
+        - libapache2-mod-php
+        - mariadb-server
       state: absent
+    when: ansible_distribution == "Ubuntu"
 
-  - name: remove php support for apache2
-    apt:
-      name: libapache2-mod-php
-      state: absent
+  - name: remove package (Rocky)
+    dnf:
+      name:
+        - httpd
+        - php
+        - mariadb
+    when: ansible_distribution == "Rocky"
+
