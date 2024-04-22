@@ -66,6 +66,15 @@
       group: root
       mode: 0644
 
+  - name: Start httpd (Rocky)
+    tags: apahce,centos,httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_distribution == "Rocky"
+
+
 - hosts: db_servers
   become: true
   tasks:
