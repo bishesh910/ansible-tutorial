@@ -74,6 +74,14 @@
       enabled: yes
     when: ansible_distribution == "Rocky"
 
+  - name: Change e-mail address for admin
+    tags: apache,centos,httpd
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@somewhere.net
+    when: ansible_distribution == "Rocky"
+    register: httpd
 
 - hosts: db_servers
   become: true
